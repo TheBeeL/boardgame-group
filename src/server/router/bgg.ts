@@ -14,6 +14,8 @@ export const bggRouter = createRouter()
   .mutation("loadCollection", {
     input: z.object({ username: z.string() }),
     resolve: async ({ ctx, input: { username } }) => {
+      // TODO: manage Collection Syncing
+      await ctx.prisma.boardgame.deleteMany();
       const collection = (await bggClient.collection.query({ username }))[0]!;
       (
         await bggClient.thing.query({
