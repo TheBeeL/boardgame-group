@@ -1,13 +1,18 @@
 import { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import BoardgameCard from "../components/Boardgame";
+import LoginButton from "../components/LoginButton";
 import { trpc } from "../utils/trpc";
 
 const Games: NextPage = () => {
   const [username, setUsername] = useState<string>();
   const boardgames = trpc.useQuery(["boardgame.getAll"]);
   const loadCollection = trpc.useMutation(["bgg.loadCollection"]);
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -19,6 +24,14 @@ const Games: NextPage = () => {
     }
   };
 
+  if (!session && status === "unauthenticated") {
+    router.push("/");
+  }
+
+  if (!session) {
+    return <div>...Loading</div>;
+  }
+
   return (
     <>
       <Head>
@@ -26,8 +39,13 @@ const Games: NextPage = () => {
       </Head>
 
       <main className="container mx-auto">
+        <LoginButton />
         <div>
-          <input defaultValue={username} onChange={handleChange} />
+          <input
+            defaultValue={username}
+            className="bg-stone-800"
+            onChange={handleChange}
+          />
           <button onClick={() => handleClick()}>Load</button>
         </div>
         {loadCollection.isLoading && <p>Loading</p>}
