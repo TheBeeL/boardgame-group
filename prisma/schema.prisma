@@ -46,14 +46,15 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    bggUsername   String?
-    accounts      Account[]
-    sessions      Session[]
+    id                String              @id @default(cuid())
+    name              String?
+    email             String?             @unique
+    emailVerified     DateTime?
+    image             String?
+    bggUsername       String?
+    accounts          Account[]
+    sessions          Session[]
+    BoardgamesOnUsers BoardgamesOnUsers[]
 }
 
 model VerificationToken {
@@ -66,11 +67,24 @@ model VerificationToken {
 
 model Boardgame {
     id                    String               @id @default(cuid())
+    expansionOfId         String?
+    expansionOf           Boardgame?           @relation("Expansions", fields: [expansionOfId], references: [id])
     name                  String
     image                 String
     thumbnail             String
     weight                Decimal
     CategoriesOnBoardgame LabelsOnBoardgames[]
+    Expansions            Boardgame[]          @relation("Expansions")
+    BoardgamesOnUsers     BoardgamesOnUsers[]
+}
+
+model BoardgamesOnUsers {
+    boardgameId String
+    boardgame   Boardgame @relation(fields: [boardgameId], references: [id])
+    userId      String
+    user        User      @relation(fields: [userId], references: [id])
+
+    @@id([boardgameId, userId])
 }
 
 model Label {
