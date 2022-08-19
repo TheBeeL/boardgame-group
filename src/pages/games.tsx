@@ -10,7 +10,7 @@ import { trpc } from "../utils/trpc";
 const Games: NextPage = () => {
   const [username, setUsername] = useState<string>();
   const boardgames = trpc.useQuery(["boardgame.getAll"]);
-  const loadCollection = trpc.useMutation(["bgg.loadCollection"]);
+  const loadCollection = trpc.useMutation(["collection.syncCollection"]);
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -19,8 +19,8 @@ const Games: NextPage = () => {
   };
 
   const handleClick = () => {
+    loadCollection.mutate();
     if (username) {
-      loadCollection.mutate({ username });
     }
   };
 
@@ -55,7 +55,11 @@ const Games: NextPage = () => {
         {boardgames.data && (
           <div className="flex flex-row flex-wrap w-full p-2 gap-2">
             {boardgames.data.map((bg) => (
-              <BoardgameCard className="basis-1/12" boardgame={bg} />
+              <BoardgameCard
+                key={bg.id}
+                className="basis-1/12"
+                boardgame={bg}
+              />
             ))}
           </div>
         )}
