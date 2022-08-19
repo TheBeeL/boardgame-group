@@ -66,8 +66,8 @@ model VerificationToken {
 }
 
 model Boardgame {
-    id                    String               @id @default(cuid())
-    expansionOfId         String?
+    id                    Int                  @id @unique
+    expansionOfId         Int?
     expansionOf           Boardgame?           @relation("Expansions", fields: [expansionOfId], references: [id])
     name                  String
     image                 String
@@ -79,7 +79,7 @@ model Boardgame {
 }
 
 model BoardgamesOnUsers {
-    boardgameId String
+    boardgameId Int
     boardgame   Boardgame @relation(fields: [boardgameId], references: [id])
     userId      String
     user        User      @relation(fields: [userId], references: [id])
@@ -88,7 +88,7 @@ model BoardgamesOnUsers {
 }
 
 model Label {
-    id                    String               @id @default(cuid())
+    id                    Int                  @id @unique
     name                  String
     type                  String
     CategoriesOnBoardgame LabelsOnBoardgames[]
@@ -96,9 +96,9 @@ model Label {
 
 model LabelsOnBoardgames {
     boardgame   Boardgame @relation(fields: [boardgameId], references: [id])
-    boardgameId String
+    boardgameId Int
     label       Label     @relation(fields: [labelId], references: [id])
-    labelId     String
+    labelId     Int
 
     @@id([boardgameId, labelId])
 }
