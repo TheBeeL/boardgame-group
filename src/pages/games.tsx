@@ -9,7 +9,7 @@ import { trpc } from "../utils/trpc";
 
 const Games: NextPage = () => {
   const [username, setUsername] = useState<string>();
-  const boardgames = trpc.useQuery(["boardgame.getAll"]);
+  const boardgames = trpc.useQuery(["boardgame.getCollection"]);
   const loadCollection = trpc.useMutation(["collection.syncCollection"]);
   const { data: session, status } = useSession();
   const router = useRouter();

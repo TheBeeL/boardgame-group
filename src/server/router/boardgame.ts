@@ -1,8 +1,19 @@
 import { resolve } from "path";
 import { createRouter } from "./context";
 
-export const boardgameRouter = createRouter().query("getAll", {
-  resolve: async ({ ctx }) => {
-    return await ctx.prisma.boardgame.findMany({ orderBy: [{ name: "asc" }] });
-  },
-});
+export const boardgameRouter = createRouter()
+  .query("getAll", {
+    resolve: async ({ ctx }) => {
+      return await ctx.prisma.boardgame.findMany({
+        orderBy: [{ name: "asc" }],
+      });
+    },
+  })
+  .query("getCollection", {
+    resolve: async ({ ctx: { prisma, session } }) => {
+      return await prisma.boardgame.findMany({
+        where: { users: { some: { id: session!.user!.id } } },
+        orderBy: [{ name: "asc" }],
+      });
+    },
+  });
