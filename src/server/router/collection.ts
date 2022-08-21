@@ -43,6 +43,27 @@ export const collectionRouter = createProtectedRouter().mutation(
               image: game.image,
               thumbnail: game.thumbnail,
               weight: new Decimal(game.statistics.ratings.averageweight),
+              users: { connect: [{ id: user.id }] },
+            };
+
+            // Labels
+            bgData.labels = {
+              connectOrCreate: game.links
+                .filter(
+                  (link) =>
+                    link.type === "boardgamecategory" ||
+                    link.type === "boardgamemechanic",
+                )
+                .map((link) => {
+                  return {
+                    where: { id: link.id },
+                    create: {
+                      id: link.id,
+                      name: link.value,
+                      type: link.type,
+                    },
+                  };
+                }),
             };
 
             if (game.type == "boardgameexpansion") {
