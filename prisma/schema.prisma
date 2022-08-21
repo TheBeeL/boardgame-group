@@ -46,15 +46,15 @@ model Session {
 }
 
 model User {
-    id                String              @id @default(cuid())
-    name              String?
-    email             String?             @unique
-    emailVerified     DateTime?
-    image             String?
-    bggUsername       String?
-    accounts          Account[]
-    sessions          Session[]
-    BoardgamesOnUsers BoardgamesOnUsers[]
+    id            String      @id @default(cuid())
+    name          String?
+    email         String?     @unique
+    emailVerified DateTime?
+    image         String?
+    bggUsername   String?
+    accounts      Account[]
+    sessions      Session[]
+    collection    Boardgame[]
 }
 
 model VerificationToken {
@@ -66,39 +66,21 @@ model VerificationToken {
 }
 
 model Boardgame {
-    id                    Int                  @id @unique
-    expansionOfId         Int?
-    expansionOf           Boardgame?           @relation("Expansions", fields: [expansionOfId], references: [id])
-    name                  String
-    image                 String
-    thumbnail             String
-    weight                Decimal
-    CategoriesOnBoardgame LabelsOnBoardgames[]
-    Expansions            Boardgame[]          @relation("Expansions")
-    BoardgamesOnUsers     BoardgamesOnUsers[]
-}
-
-model BoardgamesOnUsers {
-    boardgameId Int
-    boardgame   Boardgame @relation(fields: [boardgameId], references: [id])
-    userId      String
-    user        User      @relation(fields: [userId], references: [id])
-
-    @@id([boardgameId, userId])
+    id            Int         @id @unique
+    expansionOfId Int?
+    expansionOf   Boardgame?  @relation("Expansions", fields: [expansionOfId], references: [id])
+    name          String
+    image         String
+    thumbnail     String
+    weight        Decimal
+    labels        Label[]
+    expansions    Boardgame[] @relation("Expansions")
+    users         User[]
 }
 
 model Label {
-    id                    Int                  @id @unique
-    name                  String
-    type                  String
-    CategoriesOnBoardgame LabelsOnBoardgames[]
-}
-
-model LabelsOnBoardgames {
-    boardgame   Boardgame @relation(fields: [boardgameId], references: [id])
-    boardgameId Int
-    label       Label     @relation(fields: [labelId], references: [id])
-    labelId     Int
-
-    @@id([boardgameId, labelId])
+    id         Int         @id @unique
+    name       String
+    type       String
+    boardgames Boardgame[]
 }
