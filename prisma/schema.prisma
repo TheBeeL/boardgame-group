@@ -66,25 +66,22 @@ model VerificationToken {
 }
 
 model Boardgame {
-    id              Int         @id @unique
-    expansionOfId   Int?
-    expansionOf     Boardgame?  @relation("Expansions", fields: [expansionOfId], references: [id])
-    name            String
-    year            Int
-    image           String
-    thumbnail       String
-    description     String
-    rating          Decimal
-    rank            Int
-    weight          Decimal
-    minPlaytime     Int
-    maxPlaytime     Int
-    minPlayerCount  Int
-    maxPlayerCount  Int
-    bestPlayerCount Int
-    labels          Label[]
-    expansions      Boardgame[] @relation("Expansions")
-    users           User[]
+    id             Int         @id @unique
+    expansionOfId  Int?
+    expansionOf    Boardgame?  @relation("Expansions", fields: [expansionOfId], references: [id])
+    name           String
+    year           Int
+    image          String
+    thumbnail      String
+    description    String
+    weight         Decimal
+    minPlaytime    Int
+    maxPlaytime    Int
+    minPlayerCount Int
+    maxPlayerCount Int
+    labels         Label[]
+    expansions     Boardgame[] @relation("Expansions")
+    users          User[]
 }
 
 model Label {
