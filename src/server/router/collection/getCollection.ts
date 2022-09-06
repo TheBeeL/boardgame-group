@@ -18,6 +18,13 @@ const getLabels = (game: BggThingDto): Prisma.LabelCreateInput[] =>
       type: link.type,
     }));
 
+const decodeHTMLEntities = (rawStr: string) => {
+  return rawStr.replace(
+    /&#(\d+);/g,
+    (match, dec) => `${String.fromCharCode(dec)}`,
+  );
+};
+
 const getCollection = async (
   user: User,
 ): Promise<Prisma.BoardgameCreateInput[] | null> => {
@@ -34,27 +41,30 @@ const getCollection = async (
   return (
     await bggClient.thing.query({
       id: collections[0].items.map((i) => i.objectid),
+      stats: 1,
     })
-  ).map((game) => ({
-    id: game.id,
-    name: game.name,
-    year: game.yearpublished,
-    image: game.image,
-    thumbnail: game.thumbnail,
-    description: game.description,
-    weight: new Decimal(game.statistics.ratings.averageweight),
-    minPlaytime: game.minplaytime,
-    maxPlaytime: game.maxplaytime,
-    minPlayerCount: game.minplayers,
-    maxPlayerCount: game.maxplayers,
-    users: { connect: [{ id: user.id }] },
-    labels: {
-      connectOrCreate: getLabels(game).map((label) => ({
-        where: { id: label.id },
-        create: label,
-      })),
-    },
-  }));
+  )
+    .filter((game) => game.type === "boardgame")
+    .map((game) => ({
+      id: game.id,
+      name: decodeHTMLEntities(game.name),
+      year: game.yearpublished,
+      image: game.image,
+      thumbnail: game.thumbnail,
+      description: game.description,
+      weight: new Decimal(game.statistics.ratings.averageweight),
+      minPlaytime: game.minplaytime,
+      maxPlaytime: game.maxplaytime,
+      minPlayerCount: game.minplayers,
+      maxPlayerCount: game.maxplayers,
+      users: { connect: [{ id: user.id }] },
+      labels: {
+        connectOrCreate: getLabels(game).map((label) => ({
+          where: { id: label.id },
+          create: label,
+        })),
+      },
+    }));
 };
 
 export default getCollection;
