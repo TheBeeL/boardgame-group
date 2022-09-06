@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
-import BoardgameCard from "../components/Boardgame";
+import BoardgameCard from "../components/BoardgameCard";
 import LoginButton from "../components/LoginButton";
 import { trpc } from "../utils/trpc";
 
@@ -53,11 +53,12 @@ const Games: NextPage = () => {
         {loadCollection.isError && <p>Error: {loadCollection.error.message}</p>}
         {boardgames.isLoading && <p>...Loading</p>}
         {boardgames.data && (
-          <div className="flex flex-row flex-wrap w-full p-2 gap-2">
+          <div className="flex flex-row flex-wrap w-full gap-2">
             {boardgames.data.map((bg) => (
               <BoardgameCard
+                style={{ maxWidth: "150px" }}
                 key={bg.id}
-                className="basis-1/12"
+                className="basis-36 grow"
                 boardgame={bg}
               />
             ))}
