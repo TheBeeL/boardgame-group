@@ -28,8 +28,8 @@ const BoardgameTitle = ({ title, className }: BoardgameTitleProps) => {
   }, [title]);
 
   return (
-    <div className={`${className} flex flex-col items-center text-center`}>
-      <h3 className="text-lg">
+    <div className={`${className} flex flex-col items-center text-center py-1`}>
+      <h3 className="text-lg font-bold leading-5">
         {main.length > maxChar ? `${main.substring(0, maxChar - 3)}...` : main}
       </h3>
       {subtitle && <span className="text-stone-400 text-sm">{subtitle}</span>}
