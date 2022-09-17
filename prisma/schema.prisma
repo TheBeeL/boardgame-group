@@ -69,9 +69,9 @@ model Boardgame {
     expansionOf    Boardgame?  @relation("Expansions", fields: [expansionOfId], references: [id], onDelete: NoAction, onUpdate: NoAction)
     name           String
     year           Int
-    image          String
-    thumbnail      String
-    description    String
+    image          String      @db.Text
+    thumbnail      String      @db.Text
+    description    String      @db.Text
     weight         Decimal
     minPlaytime    Int
     maxPlaytime    Int
