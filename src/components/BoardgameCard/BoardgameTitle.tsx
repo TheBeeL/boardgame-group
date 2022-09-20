@@ -30,7 +30,7 @@ const BoardgameTitle = ({ title, className = "" }: BoardgameTitleProps) => {
 
   return (
     <div className={`${className} flex flex-col items-center text-center py-1`}>
-      <Typography level="h6">
+      <Typography level="h6" className="drop-shadow shadow-black">
         {main.length > maxChar ? `${main.substring(0, maxChar - 3)}...` : main}
       </Typography>
       <Typography level="body1">

@@ -1,4 +1,11 @@
-import { AspectRatio, Box, Card, CardOverflow } from "@mui/joy";
+import {
+  AspectRatio,
+  Box,
+  Card,
+  CardContent,
+  CardCover,
+  CardOverflow,
+} from "@mui/joy";
 import { Boardgame } from "@prisma/client";
 import { useGesture } from "@use-gesture/react";
 import Image from "next/image";
@@ -57,7 +64,7 @@ const BoardgameCard = ({
   return (
     <animated.div
       ref={ref}
-      className={`${className} hover:z-10 hover:shadow`}
+      className={`${className} rounded-md overflow-hidden hover:z-10 hover:shadow`}
       style={{
         transform: "perspective(600px)",
         scale: to([scale, zoom], (s, z) => s + z),
@@ -66,20 +73,22 @@ const BoardgameCard = ({
         rotateZ,
       }}
     >
-      <Card className={`bg-stone-800 h-full`}>
-        <CardOverflow>
-          <AspectRatio minHeight="120px" maxHeight="200px">
+      <AspectRatio ratio={1}>
+        <Card className={`bg-stone-800 h-full`}>
+          <CardCover>
             <Image
               src={boardgame.thumbnail}
               layout="fill"
               objectFit="contain"
             />
-          </AspectRatio>
-        </CardOverflow>
-        <Box>
-          <BoardgameTitle title={boardgame.name} />
-        </Box>
-      </Card>
+          </CardCover>
+          <CardContent className="justify-end w-full pb-2 bg-gradient-to-t from-black via-transparent">
+            <Box>
+              <BoardgameTitle title={boardgame.name} />
+            </Box>
+          </CardContent>
+        </Card>
+      </AspectRatio>
     </animated.div>
   );
 };
