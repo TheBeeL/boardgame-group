@@ -58,7 +58,7 @@ const Games: NextPage = () => {
               <BoardgameCard
                 style={{ maxWidth: "150px" }}
                 key={bg.id}
-                className="basis-36 grow"
+                className="basis-52 grow"
                 boardgame={bg}
               />
             ))}

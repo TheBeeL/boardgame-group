@@ -1,3 +1,4 @@
+import { Typography } from "@mui/joy";
 import { useMemo } from "react";
 
 const maxChar = 39;
@@ -7,7 +8,7 @@ interface BoardgameTitleProps {
   className?: string;
 }
 
-const BoardgameTitle = ({ title, className }: BoardgameTitleProps) => {
+const BoardgameTitle = ({ title, className = "" }: BoardgameTitleProps) => {
   const [main, subtitle, edition] = useMemo(() => {
     let main = title;
     let subtitle: string | undefined;
@@ -29,10 +30,12 @@ const BoardgameTitle = ({ title, className }: BoardgameTitleProps) => {
 
   return (
     <div className={`${className} flex flex-col items-center text-center py-1`}>
-      <h3 className="text-lg font-bold leading-5">
+      <Typography level="h6" className="drop-shadow shadow-black">
         {main.length > maxChar ? `${main.substring(0, maxChar - 3)}...` : main}
-      </h3>
-      {subtitle && <span className="text-stone-400 text-sm">{subtitle}</span>}
+      </Typography>
+      <Typography level="body1">
+        {subtitle && <span className="text-stone-400 text-sm">{subtitle}</span>}
+      </Typography>
     </div>
   );
 };
