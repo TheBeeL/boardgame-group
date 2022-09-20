@@ -39,11 +39,12 @@ const BoardgameCard = ({
     {
       onMove: ({ event: { clientX, clientY } }) => {
         if (!ref.current) return;
-        const { top, bottom, left, right } =
+        const { top, left, height, width } =
           ref.current.getBoundingClientRect();
+
         api({
-          rotateX: -(clientY - (top + (bottom - top) / 2)) / 15,
-          rotateY: (clientX - (left + (right - left) / 2)) / 5,
+          rotateX: -(clientY - (top + height / 2)) / 15,
+          rotateY: (clientX - (left + width / 2)) / 15,
           scale: 1.1,
         });
       },
