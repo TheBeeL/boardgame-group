@@ -2,19 +2,13 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
 import BoardgameCard from "../components/BoardgameCard";
 import { trpc } from "../utils/trpc";
 
 const Games: NextPage = () => {
-  const [username, setUsername] = useState<string>();
   const boardgames = trpc.useQuery(["boardgame.getCollection"]);
   const { data: session, status } = useSession();
   const router = useRouter();
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
 
   if (!session && status === "unauthenticated") {
     router.push("/");
