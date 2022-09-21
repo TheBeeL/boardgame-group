@@ -30,7 +30,7 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
     <>
       <ListItem className={`${className}`}>
         <ListItemButton onClick={handleClick}>
-          <UserIcon className="w-6 h-6 text-stone-200" />
+          <UserIcon className="h-6 w-6 text-stone-200" />
         </ListItemButton>
       </ListItem>
 
@@ -41,7 +41,7 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
         placement="bottom-end"
       >
         <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
-          <List className="border z-50 bg-stone-800 border-stone-500 rounded-md mt-2">
+          <List className="z-50 mt-2 rounded-md border border-stone-500 bg-stone-800">
             <ListItem>
               <Link href="/user" passHref>
                 <ListItemButton className="justify-between gap-2">
@@ -55,15 +55,15 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
             <ListItem>
               <ListItemButton
                 onClick={() => signOut()}
-                className="gap-2 justify-between"
+                className="justify-between gap-2"
               >
-                <ArrowLeftOnRectangleIcon className="ml-3 w-6 h-6 text-stone-300" />
+                <ArrowLeftOnRectangleIcon className="ml-3 h-6 w-6 text-stone-300" />
                 Sign Out
               </ListItemButton>
             </ListItem>
             <ListDivider className="bg-stone-500" />
             <ListItem>
-              <Link href="/games" passHref>
+              <Link href="/collection" passHref>
                 <ListItemButton className="justify-end">
                   My Collection
                 </ListItemButton>

@@ -9,18 +9,11 @@ import { trpc } from "../utils/trpc";
 const Games: NextPage = () => {
   const [username, setUsername] = useState<string>();
   const boardgames = trpc.useQuery(["boardgame.getCollection"]);
-  const loadCollection = trpc.useMutation(["collection.syncCollection"]);
   const { data: session, status } = useSession();
   const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
-  };
-
-  const handleClick = () => {
-    loadCollection.mutate();
-    if (username) {
-    }
   };
 
   if (!session && status === "unauthenticated") {
@@ -38,25 +31,14 @@ const Games: NextPage = () => {
       </Head>
 
       <main className="container mx-auto">
-        <div>
-          <input
-            defaultValue={username}
-            className="bg-stone-800"
-            onChange={handleChange}
-          />
-          <button onClick={() => handleClick()}>Load</button>
-        </div>
-        {loadCollection.isLoading && <p>Loading</p>}
-        {loadCollection.isSuccess && <p>Success</p>}
-        {loadCollection.isError && <p>Error: {loadCollection.error.message}</p>}
         {boardgames.isLoading && <p>...Loading</p>}
         {boardgames.data && (
-          <div className="flex flex-row flex-wrap w-full gap-2">
+          <div className="flex w-full flex-row flex-wrap gap-2">
             {boardgames.data.map((bg) => (
               <BoardgameCard
                 style={{ maxWidth: "150px" }}
                 key={bg.id}
-                className="basis-52 grow"
+                className="grow basis-44"
                 boardgame={bg}
               />
             ))}
