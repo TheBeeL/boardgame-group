@@ -1,6 +1,7 @@
 import { ArrowLeftOnRectangleIcon, UserIcon } from "@heroicons/react/24/solid";
 import { PopperUnstyled, ClickAwayListener } from "@mui/base";
 import { Avatar, List, ListDivider, ListItem, ListItemButton } from "@mui/joy";
+import getInitials from "@utils/getInitials";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -41,10 +42,12 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
       >
         <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
           <List className="border z-50 bg-stone-800 border-stone-500 rounded-md mt-2">
-            <ListItem className="justify-between gap-2">
+            <ListItem>
               <Link href="/user" passHref>
-                <ListItemButton>
-                  <Avatar />
+                <ListItemButton className="justify-between gap-2">
+                  <Avatar src={session?.user?.image || undefined}>
+                    {getInitials(session?.user?.name || undefined)}
+                  </Avatar>
                   {session?.user?.name}
                 </ListItemButton>
               </Link>
@@ -58,7 +61,7 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
                 Sign Out
               </ListItemButton>
             </ListItem>
-            <ListDivider />
+            <ListDivider className="bg-stone-500" />
             <ListItem>
               <Link href="/games" passHref>
                 <ListItemButton className="justify-end">
