@@ -1,3 +1,4 @@
+import MutationButton from "@components/MutationButton";
 import {
   Avatar,
   Button,
@@ -11,6 +12,7 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const UserPage: NextPage = () => {
   const router = useRouter();
@@ -19,9 +21,9 @@ const UserPage: NextPage = () => {
     onUnauthenticated: () => router.push("/"),
   });
   const { data: user } = trpc.useQuery(["user.get"]);
-  const { mutate: syncCollection, isLoading: isSyncing } = trpc.useMutation([
-    "collection.syncCollection",
-  ]);
+  const syncCollection = trpc.useMutation(["collection.syncCollection"]);
+  const userUpdateMutation = trpc.useMutation(["user.update"]);
+  const [bggUsername, setBggUsername] = useState(user?.bggUsername);
 
   if (!session || !user) return <div>...Loading</div>;
 
@@ -45,24 +47,18 @@ const UserPage: NextPage = () => {
               label="Boardgame Geek Username"
               placeholder="Inserire qui..."
               defaultValue={user.bggUsername || undefined}
+              onChange={({ target: { value } }) => setBggUsername(value)}
             />
-            <Button
-              className="bg-blue-500"
-              onClick={() => syncCollection()}
-              disabled={isSyncing}
-            >
-              {isSyncing ? (
-                <>
-                  <CircularProgress />
-                  Loading
-                </>
-              ) : (
-                <>Sync</>
-              )}
-            </Button>
+            <MutationButton mutation={syncCollection}>Sync</MutationButton>
           </div>
-          {/* <hr className="my-5 border-stone-500" />
-          <Button className="self-end bg-blue-500">Save</Button> */}
+          <hr className="my-5 border-stone-500" />
+          <MutationButton
+            mutation={userUpdateMutation}
+            data={{ bggUsername }}
+            className="self-end"
+          >
+            Save
+          </MutationButton>
         </div>
       </main>
     </>
