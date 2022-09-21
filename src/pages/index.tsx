@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import LoginButton from "../components/LoginButton";
 import { trpc } from "../utils/trpc";
 
 type TechnologyCardProps = {
@@ -28,9 +27,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container mx-auto flex flex-col items-center justify-center min-h-screen p-4">
-        <LoginButton />
-      </main>
+      <main className="container mx-auto flex flex-col items-center justify-center min-h-screen p-4"></main>
     </>
   );
 };

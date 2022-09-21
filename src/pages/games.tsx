@@ -4,7 +4,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import BoardgameCard from "../components/BoardgameCard";
-import LoginButton from "../components/LoginButton";
 import { trpc } from "../utils/trpc";
 
 const Games: NextPage = () => {
@@ -39,7 +38,6 @@ const Games: NextPage = () => {
       </Head>
 
       <main className="container mx-auto">
-        <LoginButton />
         <div>
           <input
             defaultValue={username}
