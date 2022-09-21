@@ -1,12 +1,6 @@
-import { Boardgame, Prisma } from "@prisma/client";
-import { Decimal } from "@prisma/client/runtime";
 import { TRPCError } from "@trpc/server";
-import { BggClient } from "boardgamegeekclient";
-import { z } from "zod";
 import { createProtectedRouter } from "../protected-router";
 import getCollection from "./getCollection";
-
-const bggClient = BggClient.Create();
 
 export const collectionRouter = createProtectedRouter().mutation(
   "syncCollection",
@@ -25,7 +19,10 @@ export const collectionRouter = createProtectedRouter().mutation(
       }
 
       // TODO: manage Collection sync
-      await prisma.boardgame.deleteMany();
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { collection: {} },
+      });
 
       const games = await getCollection(user);
 

@@ -8,6 +8,7 @@ import { bggRouter } from "./bgg";
 import { boardgameRouter } from "./boardgame";
 import { collectionRouter } from "./collection";
 import { userRouter } from "server/router/user";
+import { libraryRouter } from "server/router/library";
 
 export const appRouter = createRouter()
   .transformer(superjson)
@@ -16,6 +17,7 @@ export const appRouter = createRouter()
   .merge("collection.", collectionRouter)
   .merge("boardgame.", boardgameRouter)
   .merge("question.", protectedExampleRouter)
+  .merge("library.", libraryRouter)
   .merge("user.", userRouter);
 
 // export type definition of API
