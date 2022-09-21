@@ -6,6 +6,7 @@ import superjson from "superjson";
 import { SessionProvider } from "next-auth/react";
 import "../styles/globals.css";
 import { CssVarsProvider } from "@mui/joy";
+import Layout from "../components/Layout";
 
 const MyApp: AppType = ({
   Component,
@@ -14,7 +15,9 @@ const MyApp: AppType = ({
   return (
     <SessionProvider session={session}>
       <CssVarsProvider defaultMode="dark">
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </CssVarsProvider>
     </SessionProvider>
   );
