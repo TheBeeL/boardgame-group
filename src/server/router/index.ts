@@ -7,6 +7,7 @@ import { protectedExampleRouter } from "./protected-example-router";
 import { bggRouter } from "./bgg";
 import { boardgameRouter } from "./boardgame";
 import { collectionRouter } from "./collection";
+import { userRouter } from "server/router/user";
 
 export const appRouter = createRouter()
   .transformer(superjson)
@@ -14,7 +15,8 @@ export const appRouter = createRouter()
   .merge("bgg.", bggRouter)
   .merge("collection.", collectionRouter)
   .merge("boardgame.", boardgameRouter)
-  .merge("question.", protectedExampleRouter);
+  .merge("question.", protectedExampleRouter)
+  .merge("user.", userRouter);
 
 // export type definition of API
 export type AppRouter = typeof appRouter;

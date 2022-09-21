@@ -1,9 +1,11 @@
 import { ArrowLeftOnRectangleIcon, UserIcon } from "@heroicons/react/24/solid";
-import { PopperUnstyled } from "@mui/base";
+import { PopperUnstyled, ClickAwayListener } from "@mui/base";
 import { Avatar, List, ListDivider, ListItem, ListItemButton } from "@mui/joy";
+import getInitials from "@utils/getInitials";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { MouseEvent, useState } from "react";
+import { useRouter } from "next/router";
+import { MouseEvent, useEffect, useState } from "react";
 
 interface UserListItemProps {
   className?: string;
@@ -12,8 +14,13 @@ interface UserListItemProps {
 const UserListItem = ({ className = "" }: UserListItemProps) => {
   const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const router = useRouter();
   const open = !!anchorEl;
   const id = open ? "user-popper" : undefined;
+
+  useEffect(() => {
+    setAnchorEl(null);
+  }, [router.route]);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -23,7 +30,7 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
     <>
       <ListItem className={`${className}`}>
         <ListItemButton onClick={handleClick}>
-          <UserIcon className="w-6 h-6 text-stone-200" />
+          <UserIcon className="h-6 w-6 text-stone-200" />
         </ListItemButton>
       </ListItem>
 
@@ -33,29 +40,37 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
         anchorEl={anchorEl}
         placement="bottom-end"
       >
-        <List className="border z-50 bg-stone-800 border-stone-500 rounded-md mt-2">
-          <ListItem className="justify-between gap-2">
-            <Avatar />
-            {session?.user?.name}
-          </ListItem>
-          <ListItem>
-            <ListItemButton
-              onClick={() => signOut()}
-              className="gap-2 justify-between"
-            >
-              <ArrowLeftOnRectangleIcon className="ml-3 w-6 h-6 text-stone-300" />
-              Sign Out
-            </ListItemButton>
-          </ListItem>
-          <ListDivider />
-          <ListItem>
-            <Link href="/games" passHref>
-              <ListItemButton className="justify-end">
-                My Collection
+        <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
+          <List className="z-50 mt-2 rounded-md border border-stone-500 bg-stone-800">
+            <ListItem>
+              <Link href="/user" passHref>
+                <ListItemButton className="justify-between gap-2">
+                  <Avatar src={session?.user?.image || undefined}>
+                    {getInitials(session?.user?.name || undefined)}
+                  </Avatar>
+                  {session?.user?.name}
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <ListItemButton
+                onClick={() => signOut()}
+                className="justify-between gap-2"
+              >
+                <ArrowLeftOnRectangleIcon className="ml-3 h-6 w-6 text-stone-300" />
+                Sign Out
               </ListItemButton>
-            </Link>
-          </ListItem>
-        </List>
+            </ListItem>
+            <ListDivider className="bg-stone-500" />
+            <ListItem>
+              <Link href="/collection" passHref>
+                <ListItemButton className="justify-end">
+                  My Collection
+                </ListItemButton>
+              </Link>
+            </ListItem>
+          </List>
+        </ClickAwayListener>
       </PopperUnstyled>
     </>
   );
