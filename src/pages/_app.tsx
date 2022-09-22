@@ -1,12 +1,13 @@
 // src/pages/_app.tsx
+import { CssVarsProvider } from "@mui/joy";
 import { withTRPC } from "@trpc/next";
-import type { AppRouter } from "../server/router";
+import { SessionProvider } from "next-auth/react";
 import type { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
-import { SessionProvider } from "next-auth/react";
-import "../styles/globals.css";
-import { CssVarsProvider } from "@mui/joy";
 import Layout from "../components/Layout";
+import type { AppRouter } from "../server/router";
+import "../styles/globals.css";
+import theme from "../styles/theme";
 
 const MyApp: AppType = ({
   Component,
@@ -14,7 +15,7 @@ const MyApp: AppType = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <CssVarsProvider defaultMode="dark">
+      <CssVarsProvider defaultMode="dark" theme={theme}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
