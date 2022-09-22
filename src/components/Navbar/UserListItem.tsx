@@ -28,7 +28,7 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
 
   return (
     <>
-      <ListItemButton onClick={handleClick}>
+      <ListItemButton onClick={handleClick} className="rounded-full">
         <UserIcon className="h-6 w-6 text-stone-200" />
       </ListItemButton>
 
@@ -42,7 +42,7 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
           <List className="z-50 mt-2 rounded-md border border-stone-500 bg-stone-800">
             <ListItem>
               <Link href="/user" passHref>
-                <ListItemButton className="justify-between gap-2">
+                <ListItemButton className="justify-between gap-2" component="a">
                   <Avatar src={session?.user?.image || undefined}>
                     {getInitials(session?.user?.name || undefined)}
                   </Avatar>
@@ -62,7 +62,7 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
             <ListDivider className="bg-stone-500" />
             <ListItem>
               <Link href="/collection" passHref>
-                <ListItemButton className="justify-end">
+                <ListItemButton className="justify-end" component="a">
                   My Collection
                 </ListItemButton>
               </Link>

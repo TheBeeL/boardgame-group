@@ -5,6 +5,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemContent,
+  Sheet,
   Typography,
 } from "@mui/joy";
 import { signIn, useSession } from "next-auth/react";
@@ -18,19 +19,22 @@ const Navbar = ({ className = "" }: NavbarProps) => {
   const { data: session } = useSession();
 
   return (
-    <Box component="nav" className={`${className} grow`}>
-      <List row>
-        <ListItem>
+    <Sheet component="nav" className={`${className} grow rounded-md`}>
+      <List row sx={{ pl: 0 }}>
+        <ListItem sx={{ pl: 0 }}>
           <Link href="/" passHref>
-            <ListItemContent className="cursor-pointer">
+            <ListItemButton className="cursor-pointer rounded-md" component="a">
               <Typography
                 className="select-none"
-                level="h3"
+                level="h1"
+                fontSize="2.5rem"
+                fontWeight="400"
                 fontFamily="'Oleo Script'"
+                color="primary"
               >
                 Meeplr
               </Typography>
-            </ListItemContent>
+            </ListItemButton>
           </Link>
         </ListItem>
 
@@ -44,7 +48,7 @@ const Navbar = ({ className = "" }: NavbarProps) => {
           )}
         </ListItem>
       </List>
-    </Box>
+    </Sheet>
   );
 };
 
