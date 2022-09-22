@@ -23,22 +23,26 @@ const Navbar = ({ className = "" }: NavbarProps) => {
         <ListItem>
           <Link href="/" passHref>
             <ListItemContent className="cursor-pointer">
-              <Typography className="select-none font-brand" level="h3">
+              <Typography
+                className="select-none"
+                level="h3"
+                fontFamily="'Oleo Script'"
+              >
                 Meeplr
               </Typography>
             </ListItemContent>
           </Link>
         </ListItem>
 
-        {session ? (
-          <UserListItem className="ml-auto" />
-        ) : (
-          <ListItem className="ml-auto">
+        <ListItem sx={{ marginLeft: "auto" }}>
+          {session ? (
+            <UserListItem />
+          ) : (
             <ListItemButton onClick={() => signIn("google")}>
               Sign in
             </ListItemButton>
-          </ListItem>
-        )}
+          )}
+        </ListItem>
       </List>
     </Box>
   );

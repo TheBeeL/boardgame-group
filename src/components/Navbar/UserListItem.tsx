@@ -28,11 +28,9 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
 
   return (
     <>
-      <ListItem className={`${className}`}>
-        <ListItemButton onClick={handleClick}>
-          <UserIcon className="h-6 w-6 text-stone-200" />
-        </ListItemButton>
-      </ListItem>
+      <ListItemButton onClick={handleClick}>
+        <UserIcon className="h-6 w-6 text-stone-200" />
+      </ListItemButton>
 
       <PopperUnstyled
         open={open}
