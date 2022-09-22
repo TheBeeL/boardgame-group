@@ -65,7 +65,7 @@ const BoardgameCard = ({
   return (
     <animated.div
       ref={ref}
-      className={`${className} overflow-hidden rounded-md hover:shadow-2xl`}
+      className={`${className} aspect-square overflow-hidden rounded-xl hover:shadow-2xl`}
       style={{
         transform: "perspective(600px)",
         scale,
@@ -75,22 +75,16 @@ const BoardgameCard = ({
         zIndex: to([zIndex], (z) => Math.floor(z)),
       }}
     >
-      <AspectRatio ratio={1}>
-        <Card className={`h-full bg-stone-800`}>
-          <CardCover>
-            <Image
-              src={boardgame.thumbnail}
-              layout="fill"
-              objectFit="contain"
-            />
-          </CardCover>
-          <CardContent className="w-full justify-end bg-gradient-to-t from-black via-transparent pb-2">
-            <Box>
-              <BoardgameTitle title={boardgame.name} />
-            </Box>
-          </CardContent>
-        </Card>
-      </AspectRatio>
+      <Card className={`h-full rounded-none bg-stone-800 p-0`}>
+        <CardCover>
+          <Image src={boardgame.thumbnail} layout="fill" objectFit="contain" />
+        </CardCover>
+        <CardContent className="w-full justify-end bg-gradient-to-t from-black via-transparent pb-2">
+          <Box>
+            <BoardgameTitle title={boardgame.name} />
+          </Box>
+        </CardContent>
+      </Card>
     </animated.div>
   );
 };
