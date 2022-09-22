@@ -25,7 +25,7 @@ const decodeHTMLEntities = (rawStr: string) => {
   );
 };
 
-const getCollection = async (
+const getBGGCollection = async (
   user: User,
 ): Promise<Prisma.BoardgameCreateInput[] | null> => {
   if (!user.bggUsername) return null;
@@ -67,4 +67,4 @@ const getCollection = async (
     }));
 };
 
-export default getCollection;
+export default getBGGCollection;
