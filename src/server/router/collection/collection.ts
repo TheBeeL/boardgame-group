@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { createProtectedRouter } from "../protected-router";
-import getCollection from "./getCollection";
+import getBGGCollection from "./getBGGCollection";
 
 export const collectionRouter = createProtectedRouter().mutation(
   "syncCollection",
@@ -18,21 +18,31 @@ export const collectionRouter = createProtectedRouter().mutation(
         throw new TRPCError({ code: "BAD_REQUEST" });
       }
 
-      // TODO: manage Collection sync
+      // Clear user's collection
       await prisma.user.update({
-        where: { id: user.id },
-        data: { collection: {} },
+        where: {
+          id: user.id,
+        },
+        data: {
+          collection: {
+            set: [],
+          },
+        },
       });
 
-      const games = await getCollection(user);
+      const boardgames = await getBGGCollection(user);
 
-      if (!games) {
+      if (!boardgames) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
 
-      games.forEach(
-        async (game) => await prisma.boardgame.create({ data: game }),
-      );
+      boardgames.forEach(async ({ id, ...boardgame }) => {
+        await prisma.boardgame.upsert({
+          where: { id },
+          update: boardgame,
+          create: { id, ...boardgame },
+        });
+      });
     },
   },
 );
