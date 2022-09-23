@@ -65,7 +65,7 @@ const BoardgameCard = ({
   return (
     <animated.div
       ref={ref}
-      className={`${className} aspect-square overflow-hidden rounded-xl hover:shadow-2xl`}
+      className={`${className} aspect-square overflow-hidden rounded-lg hover:shadow-2xl`}
       style={{
         transform: "perspective(600px)",
         scale,

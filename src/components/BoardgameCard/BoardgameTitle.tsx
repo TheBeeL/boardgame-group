@@ -29,13 +29,19 @@ const BoardgameTitle = ({ title, className = "" }: BoardgameTitleProps) => {
   }, [title]);
 
   return (
-    <div className={`${className} flex flex-col items-center text-center py-1`}>
-      <Typography level="h6" className="drop-shadow shadow-black">
+    <div className={`${className} flex flex-col items-center py-1 text-center`}>
+      <Typography
+        level="h6"
+        className="shadow-black drop-shadow"
+        lineHeight="1.2rem"
+      >
         {main.length > maxChar ? `${main.substring(0, maxChar - 3)}...` : main}
       </Typography>
-      <Typography level="body1">
-        {subtitle && <span className="text-stone-400 text-sm">{subtitle}</span>}
-      </Typography>
+      {subtitle && (
+        <Typography level="body2" lineHeight="1rem" className="text-stone-400">
+          {subtitle}
+        </Typography>
+      )}
     </div>
   );
 };
