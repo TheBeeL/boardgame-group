@@ -3,6 +3,7 @@ import { Decimal } from "@prisma/client/runtime";
 import { BggClient } from "boardgamegeekclient";
 import { BggThingDto } from "boardgamegeekclient/dist/esm/dto";
 import { BggPollDto } from "boardgamegeekclient/dist/esm/dto/concrete/subdto";
+import { decode } from "html-entities";
 
 const bggClient = BggClient.Create();
 
@@ -17,13 +18,6 @@ const getLabels = (game: BggThingDto): Prisma.LabelCreateInput[] =>
       name: link.value,
       type: link.type,
     }));
-
-const decodeHTMLEntities = (rawStr: string) => {
-  return rawStr.replace(
-    /&#(\d+);/g,
-    (match, dec) => `${String.fromCharCode(dec)}`,
-  );
-};
 
 const getBGGCollection = async (
   user: User,
@@ -47,7 +41,7 @@ const getBGGCollection = async (
     .filter((game) => game.type === "boardgame")
     .map((game) => ({
       id: game.id,
-      name: decodeHTMLEntities(game.name),
+      name: decode(game.name),
       year: game.yearpublished,
       image: game.image,
       thumbnail: game.thumbnail,

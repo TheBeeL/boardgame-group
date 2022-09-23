@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { createProtectedRouter } from "../protected-router";
+import { createProtectedRouter } from "server/utils/protected";
 import getBGGCollection from "./getBGGCollection";
 
 export const collectionRouter = createProtectedRouter().mutation(

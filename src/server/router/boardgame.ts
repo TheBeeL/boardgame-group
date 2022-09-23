@@ -1,5 +1,4 @@
-import { resolve } from "path";
-import { createRouter } from "./context";
+import { createRouter } from "server/utils";
 
 export const boardgameRouter = createRouter()
   .query("getAll", {

@@ -1,4 +1,4 @@
-import { createRouter } from "./context";
+import { createRouter } from "server/utils";
 
 export const libraryRouter = createRouter().query("getAll", {
   resolve: async ({ ctx: { prisma } }) =>

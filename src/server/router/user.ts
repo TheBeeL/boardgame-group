@@ -1,5 +1,5 @@
+import { createProtectedRouter } from "server/utils/protected";
 import { z } from "zod";
-import { createProtectedRouter } from "./protected-router";
 
 export const userRouter = createProtectedRouter()
   .query("get", {
