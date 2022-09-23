@@ -1,3 +1,4 @@
+import BoardgameGrid from "@components/BoardgameGrid";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
@@ -27,16 +28,7 @@ const Games: NextPage = () => {
       <main className="container mx-auto">
         {boardgames.isLoading && <p>...Loading</p>}
         {boardgames.data && (
-          <div className="flex w-full flex-row flex-wrap gap-2">
-            {boardgames.data.map((bg) => (
-              <BoardgameCard
-                style={{ maxWidth: "150px" }}
-                key={bg.id}
-                className="grow basis-44"
-                boardgame={bg}
-              />
-            ))}
-          </div>
+          <BoardgameGrid list={boardgames.data} className="w-full" />
         )}
       </main>
     </>
