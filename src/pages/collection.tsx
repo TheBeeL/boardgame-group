@@ -7,7 +7,7 @@ import BoardgameCard from "../components/BoardgameCard";
 import { trpc } from "../utils/trpc";
 
 const Games: NextPage = () => {
-  const boardgames = trpc.useQuery(["boardgame.getCollection"]);
+  const boardgames = trpc.useQuery(["user.getCollection"]);
   const { data: session, status } = useSession();
   const router = useRouter();
 

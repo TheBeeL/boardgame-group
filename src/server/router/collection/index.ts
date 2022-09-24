@@ -1,1 +1,0 @@
-export { collectionRouter } from "./collection";

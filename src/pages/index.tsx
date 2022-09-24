@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
-  const { data: library, isLoading } = trpc.useQuery(["library.getAll"]);
+  const { data: library, isLoading } = trpc.useQuery(["boardgame.getAll"]);
 
   return (
     <>
