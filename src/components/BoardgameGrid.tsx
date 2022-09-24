@@ -8,13 +8,11 @@ interface BoardgameGridProps {
 
 const BoardgameGrid = ({ className = "", list }: BoardgameGridProps) => {
   return (
-    <div className={`${className} flex flex-row flex-wrap gap-2`}>
+    <div
+      className={`${className} grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-6`}
+    >
       {list.map((item) => (
-        <BoardgameCard
-          key={item.id}
-          className="grow basis-32"
-          boardgame={item}
-        />
+        <BoardgameCard key={item.id} boardgame={item} />
       ))}
     </div>
   );
