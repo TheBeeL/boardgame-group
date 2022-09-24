@@ -1,10 +1,8 @@
 import * as trpc from "@trpc/server";
-import { createRouter } from "./context";
+import { Session } from "next-auth";
+import { Context, createRouter } from "./";
 
-/**
- * Creates a tRPC router that asserts all queries and mutations are from an authorized user. Will throw an unauthorized error if a user is not signed in.
- */
-export function createProtectedRouter() {
+export const createProtectedRouter = () => {
   return createRouter().middleware(({ ctx, next }) => {
     if (!ctx.session || !ctx.session.user) {
       throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
@@ -17,4 +15,10 @@ export function createProtectedRouter() {
       },
     });
   });
-}
+};
+
+export const authorize = ({ ctx }: { ctx: Context }) => {
+  if (!ctx.session || !ctx.session.user) {
+    throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
+  }
+};

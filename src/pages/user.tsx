@@ -21,7 +21,7 @@ const UserPage: NextPage = () => {
     onUnauthenticated: () => router.push("/"),
   });
   const { data: user } = trpc.useQuery(["user.get"]);
-  const syncCollection = trpc.useMutation(["collection.syncCollection"]);
+  const syncCollection = trpc.useMutation(["user.syncBGGCollection"]);
   const userUpdateMutation = trpc.useMutation(["user.update"]);
   const [bggUsername, setBggUsername] = useState(user?.bggUsername);
 

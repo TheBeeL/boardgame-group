@@ -29,12 +29,12 @@ const BoardgameCard = ({
   style,
 }: BoardgameCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [{ rotateX, rotateY, rotateZ, scale, zoom }, api] = useSpring(() => ({
+  const [{ rotateX, rotateY, rotateZ, scale, zIndex }, api] = useSpring(() => ({
     rotateX: 0,
     rotateY: 0,
     rotateZ: 0,
     scale: 1,
-    zoom: 0,
+    zIndex: 0,
     config: {
       mass: 5,
       tension: 350,
@@ -52,11 +52,12 @@ const BoardgameCard = ({
         api({
           rotateX: -(clientY - (top + height / 2)) / 15,
           rotateY: (clientX - (left + width / 2)) / 15,
-          scale: 1.1,
+          scale: 1.2,
+          zIndex: 10,
         });
       },
       onHover: ({ hovering }) =>
-        !hovering && api({ rotateX: 0, rotateY: 0, scale: 1 }),
+        !hovering && api({ rotateX: 0, rotateY: 0, scale: 1, zIndex: 0 }),
     },
     { target: ref, eventOptions: { passive: false } },
   );
@@ -64,31 +65,26 @@ const BoardgameCard = ({
   return (
     <animated.div
       ref={ref}
-      className={`${className} rounded-md overflow-hidden hover:z-10 hover:shadow`}
+      className={`${className} aspect-square overflow-hidden rounded-lg hover:shadow-2xl`}
       style={{
         transform: "perspective(600px)",
-        scale: to([scale, zoom], (s, z) => s + z),
+        scale,
         rotateX,
         rotateY,
         rotateZ,
+        zIndex: to([zIndex], (z) => Math.floor(z)),
       }}
     >
-      <AspectRatio ratio={1}>
-        <Card className={`bg-stone-800 h-full`}>
-          <CardCover>
-            <Image
-              src={boardgame.thumbnail}
-              layout="fill"
-              objectFit="contain"
-            />
-          </CardCover>
-          <CardContent className="justify-end w-full pb-2 bg-gradient-to-t from-black via-transparent">
-            <Box>
-              <BoardgameTitle title={boardgame.name} />
-            </Box>
-          </CardContent>
-        </Card>
-      </AspectRatio>
+      <Card className={`h-full rounded-none bg-stone-800 p-0`}>
+        <CardCover>
+          <Image src={boardgame.thumbnail} layout="fill" objectFit="contain" />
+        </CardCover>
+        <CardContent className="w-full justify-end bg-gradient-to-t from-black via-transparent pb-2">
+          <Box>
+            <BoardgameTitle title={boardgame.name} />
+          </Box>
+        </CardContent>
+      </Card>
     </animated.div>
   );
 };

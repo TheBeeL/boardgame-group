@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <Container className="pt-2">
+    <Container className="pt-2 pb-5">
       <Navbar className="mb-2" />
       <main>{children}</main>
     </Container>
