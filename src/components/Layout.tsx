@@ -1,5 +1,4 @@
 import Navbar from "@components/Navbar";
-import { Container } from "@mui/joy";
 import { ReactNode } from "react";
 
 interface LayoutProps {
@@ -8,10 +7,10 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <Container className="pt-2 pb-5">
+    <div className="container pt-2 pb-5">
       <Navbar className="mb-2" />
       <main>{children}</main>
-    </Container>
+    </div>
   );
 };
 
