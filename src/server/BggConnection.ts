@@ -2,7 +2,6 @@ import { Prisma } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime";
 import { BggClient } from "boardgamegeekclient";
 import { BggThingDto } from "boardgamegeekclient/dist/esm/dto";
-import { link } from "fs";
 import { decode } from "html-entities";
 
 const bggClient = BggClient.Create();
