@@ -1,4 +1,3 @@
-import { Typography } from "@mui/joy";
 import { useMemo } from "react";
 
 const maxChar = 39;
@@ -30,18 +29,10 @@ const BoardgameTitle = ({ title, className = "" }: BoardgameTitleProps) => {
 
   return (
     <div className={`${className} flex flex-col items-center py-1 text-center`}>
-      <Typography
-        level="h6"
-        className="shadow-black drop-shadow"
-        lineHeight="1.2rem"
-      >
+      <h6 className="text-white shadow-black drop-shadow-sm">
         {main.length > maxChar ? `${main.substring(0, maxChar - 3)}...` : main}
-      </Typography>
-      {subtitle && (
-        <Typography level="body2" lineHeight="1rem" className="text-stone-400">
-          {subtitle}
-        </Typography>
-      )}
+      </h6>
+      {subtitle && <p className="text-sm text-stone-400">{subtitle}</p>}
     </div>
   );
 };
