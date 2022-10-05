@@ -1,13 +1,4 @@
 import UserListItem from "@components/Navbar/UserListItem";
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemContent,
-  Sheet,
-  Typography,
-} from "@mui/joy";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 
@@ -19,36 +10,24 @@ const Navbar = ({ className = "" }: NavbarProps) => {
   const { data: session } = useSession();
 
   return (
-    <Sheet component="nav" className={`${className} grow rounded-md`}>
-      <List row sx={{ pl: 0 }}>
-        <ListItem sx={{ pl: 0 }}>
-          <Link href="/" passHref>
-            <ListItemButton className="cursor-pointer rounded-md" component="a">
-              <Typography
-                className="select-none"
-                level="h1"
-                fontSize="2.5rem"
-                fontWeight="400"
-                fontFamily="'Oleo Script'"
-                color="primary"
-              >
-                Meeplr
-              </Typography>
-            </ListItemButton>
-          </Link>
-        </ListItem>
-
-        <ListItem sx={{ marginLeft: "auto" }}>
-          {session ? (
-            <UserListItem />
-          ) : (
-            <ListItemButton onClick={() => signIn("google")}>
-              Sign in
-            </ListItemButton>
-          )}
-        </ListItem>
-      </List>
-    </Sheet>
+    <nav className="navbar mb-3 rounded-2xl bg-base-300">
+      <div className="flex-1">
+        <Link href="/">
+          <a className="btn btn-ghost font-brand text-3xl font-normal normal-case text-cyan-500">
+            Meeplr
+          </a>
+        </Link>
+      </div>
+      <div className="flex-none gap-2">
+        {session ? (
+          <UserListItem />
+        ) : (
+          <button className="btn btn-primary" onClick={() => signIn("google")}>
+            Sign in
+          </button>
+        )}
+      </div>
+    </nav>
   );
 };
 
