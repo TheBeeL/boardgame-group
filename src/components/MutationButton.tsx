@@ -1,4 +1,3 @@
-import { Button, CircularProgress } from "@mui/joy";
 import { ReactNode } from "react";
 
 interface MutationButtonProps {
@@ -20,13 +19,13 @@ const MutationButton = ({
   className = "",
 }: MutationButtonProps) => {
   return (
-    <Button
-      className={`${className} bg-blue-500`}
+    <button
+      className={`${className} btn btn-primary ${isLoading && "loading"}`}
       disabled={isLoading}
       onClick={() => mutate(data)}
     >
-      {isLoading ? <CircularProgress /> : children}
-    </Button>
+      {children}
+    </button>
   );
 };
 
