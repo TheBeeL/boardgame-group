@@ -23,6 +23,7 @@
     "@trpc/server": "^9.27.0",
     "@use-gesture/react": "^10.2.20",
     "boardgamegeekclient": "^1.6.0",
+    "daisyui": "^2.31.0",
     "html-entities": "^2.3.3",
     "next": "12.2.3",
     "next-auth": "^4.10.3",
