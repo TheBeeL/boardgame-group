@@ -3,7 +3,6 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import BoardgameCard from "../components/BoardgameCard";
 import { trpc } from "../utils/trpc";
 
 const Games: NextPage = () => {

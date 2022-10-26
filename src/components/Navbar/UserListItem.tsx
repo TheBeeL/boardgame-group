@@ -1,10 +1,8 @@
-import { ArrowLeftOnRectangleIcon, UserIcon } from "@heroicons/react/24/solid";
-import { Avatar, ListDivider, ListItemButton, Menu, MenuItem } from "@mui/joy";
-import getInitials from "@utils/getInitials";
+import { UserIcon } from "@heroicons/react/24/solid";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { MouseEvent, useEffect, useState } from "react";
 
 interface UserListItemProps {
   className?: string;
@@ -12,56 +10,44 @@ interface UserListItemProps {
 
 const UserListItem = ({ className = "" }: UserListItemProps) => {
   const { data: session } = useSession();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = !!anchorEl;
 
   const router = useRouter();
-  useEffect(() => {
-    setAnchorEl(null);
-  }, [router.route]);
-
-  const handleClick = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
 
   return (
-    <>
-      <ListItemButton onClick={handleClick} className="rounded-full">
-        <UserIcon className="h-6 w-6 text-stone-200" />
-      </ListItemButton>
-
-      <Menu
-        id="user-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={() => setAnchorEl(null)}
-        placement="bottom-end"
-        className="z-50 rounded-md border border-stone-500"
+    <div className="dropdown dropdown-end">
+      <label tabIndex={0} className="avatar btn btn-ghost btn-circle">
+        <div className="w-10 rounded-full">
+          <UserIcon className="h-10 w-10 text-stone-200" />
+        </div>
+      </label>
+      <ul
+        tabIndex={0}
+        className="dropdown-content menu rounded-box menu-compact mt-3 bg-base-300 p-2 shadow"
       >
-        <MenuItem>
+        <li className="mb-2 border-b border-base-content/50 pb-2">
           <Link href="/user">
-            <a className="flex w-full items-center justify-between gap-2">
-              <Avatar src={session?.user?.image || undefined}>
-                {getInitials(session?.user?.name || undefined)}
-              </Avatar>
-              <span className="ml-2 whitespace-nowrap">
-                {session?.user?.name}
-              </span>
+            <a className="justify-between gap-6">
+              <div className="avatar overflow-hidden rounded-full">
+                <div className="w-10">
+                  {session?.user?.image && (
+                    <Image src={session.user.image} layout="fill" />
+                  )}
+                </div>
+              </div>
+              <span className="whitespace-nowrap">{session?.user?.name}</span>
             </a>
           </Link>
-        </MenuItem>
-        <MenuItem onClick={() => signOut()} className="justify-between gap-2">
-          <ArrowLeftOnRectangleIcon className="ml-3 h-6 w-6 text-stone-300" />
-          Sign out
-        </MenuItem>
-        <ListDivider className="bg-stone-500" />
-        <MenuItem className="justify-end">
+        </li>
+        <li>
           <Link href="/collection">
             <a>My Collection</a>
           </Link>
-        </MenuItem>
-      </Menu>
-    </>
+        </li>
+        <li>
+          <a onClick={() => signOut()}>Logout</a>
+        </li>
+      </ul>
+    </div>
   );
 };
 
