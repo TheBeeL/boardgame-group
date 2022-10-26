@@ -1,16 +1,9 @@
 import MutationButton from "@components/MutationButton";
-import {
-  Avatar,
-  Button,
-  CircularProgress,
-  TextField,
-  Typography,
-} from "@mui/joy";
-import getInitials from "@utils/getInitials";
 import { trpc } from "@utils/trpc";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -36,19 +29,28 @@ const UserPage: NextPage = () => {
       <main className="container mx-auto">
         <div className="mx-auto mt-5 flex max-w-lg flex-col rounded-lg border border-stone-500 p-3">
           <div className="flex gap-5 p-3">
-            <Avatar src={user.image || undefined}>
-              {getInitials(user.name || undefined)}
-            </Avatar>
-            <Typography level="h2">{user.name}</Typography>
+            {user.image && (
+              <div className="avatar aspect-square w-10 overflow-hidden rounded-full">
+                <Image src={user.image} layout="fill" />
+              </div>
+            )}
+            <h2 className="text-2xl">{user.name}</h2>
           </div>
           <hr className="my-5 border-stone-500" />
           <div className="flex items-end justify-between gap-2">
-            <TextField
-              label="Boardgame Geek Username"
-              placeholder="Inserire qui..."
-              defaultValue={user.bggUsername || undefined}
-              onChange={({ target: { value } }) => setBggUsername(value)}
-            />
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Boardgame Geek Username</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Inserire qui..."
+                className="input input-bordered w-full max-w-xs bg-neutral-focus"
+                defaultValue={user.bggUsername || undefined}
+                onChange={({ target: { value } }) => setBggUsername(value)}
+              />
+            </div>
+
             <MutationButton mutation={syncCollection}>Sync</MutationButton>
           </div>
           <hr className="my-5 border-stone-500" />

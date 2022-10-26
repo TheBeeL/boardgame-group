@@ -1,6 +1,6 @@
 import { useGesture } from "@use-gesture/react";
 import { useRef } from "react";
-import { useSpring, animated, to } from "react-spring";
+import { animated, to, useSpring } from "react-spring";
 
 interface HoverEffectProps {
   className?: string;

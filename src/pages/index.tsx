@@ -1,9 +1,6 @@
-import BoardgameCard from "@components/BoardgameCard";
 import BoardgameGrid from "@components/BoardgameGrid";
 import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {

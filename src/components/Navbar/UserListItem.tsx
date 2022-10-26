@@ -14,7 +14,7 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
   const router = useRouter();
 
   return (
-    <div className="dropdown-end dropdown">
+    <div className="dropdown dropdown-end">
       <label tabIndex={0} className="avatar btn btn-ghost btn-circle">
         <div className="w-10 rounded-full">
           <UserIcon className="h-10 w-10 text-stone-200" />

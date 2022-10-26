@@ -1,4 +1,3 @@
-import { Typography } from "@mui/joy";
 import { trpc } from "@utils/trpc";
 import Head from "next/head";
 import Image from "next/image";
@@ -28,14 +27,11 @@ const BoardgamePage = () => {
             <Image src={boardgame.image} layout="fill" objectFit="contain" />
           </div>
           <div className="basis-2/3">
-            <Typography level="display2" className="-mt-3 mb-3">
-              {boardgame.name}
-            </Typography>
-            <Typography level="body1" className="whitespace-pre-wrap">
-              <span
-                dangerouslySetInnerHTML={{ __html: boardgame.description }}
-              />
-            </Typography>
+            <h1 className="text-3xl font-bold">{boardgame.name}</h1>
+            <p
+              className="whitespace-pre-wrap"
+              dangerouslySetInnerHTML={{ __html: boardgame.description }}
+            />
           </div>
         </div>
       </main>
