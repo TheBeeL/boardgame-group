@@ -1,7 +1,7 @@
 import BoardgameTitle from "@components/BoardgameCard/BoardgameTitle";
 import HoverEffect from "@components/BoardgameCard/HoverEffect";
 import { Boardgame } from "@prisma/client";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { CSSProperties } from "react";
 
