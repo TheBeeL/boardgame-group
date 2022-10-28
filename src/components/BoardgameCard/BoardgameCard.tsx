@@ -18,25 +18,26 @@ const BoardgameCard = ({
 }: BoardgameCardProps) => {
   return (
     <HoverEffect className={`${className}`}>
-      <Link href={`/boardgame/${boardgame.id}`}>
-        <a className="card h-full bg-base-300">
-          <figure>
-            <Image
-              src={boardgame.thumbnail}
-              alt={boardgame.name}
-              fill
-              sizes="100vw"
-              style={{
-                objectFit: "contain",
-              }}
-            />
-          </figure>
-          <div className="card-body z-10 justify-end bg-gradient-to-t from-black via-transparent p-3">
-            <div className="card-title justify-center">
-              <BoardgameTitle title={boardgame.name} />
-            </div>
+      <Link
+        href={`/boardgame/${boardgame.id}`}
+        className="card h-full bg-base-300"
+      >
+        <figure>
+          <Image
+            src={boardgame.thumbnail}
+            alt={boardgame.name}
+            fill
+            sizes="100vw"
+            style={{
+              objectFit: "contain",
+            }}
+          />
+        </figure>
+        <div className="card-body z-10 justify-end bg-gradient-to-t from-black via-transparent p-3">
+          <div className="card-title justify-center">
+            <BoardgameTitle title={boardgame.name} />
           </div>
-        </a>
+        </div>
       </Link>
     </HoverEffect>
   );
