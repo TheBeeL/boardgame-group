@@ -1,7 +1,7 @@
 import BoardgameTitle from "@components/BoardgameCard/BoardgameTitle";
 import HoverEffect from "@components/BoardgameCard/HoverEffect";
 import { Boardgame } from "@prisma/client";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties } from "react";
 
@@ -23,8 +23,12 @@ const BoardgameCard = ({
           <figure>
             <Image
               src={boardgame.thumbnail}
-              layout="fill"
-              objectFit="contain"
+              alt={boardgame.name}
+              fill
+              sizes="100vw"
+              style={{
+                objectFit: "contain",
+              }}
             />
           </figure>
           <div className="card-body z-10 justify-end bg-gradient-to-t from-black via-transparent p-3">

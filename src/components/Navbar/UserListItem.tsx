@@ -1,6 +1,6 @@
 import { UserIcon } from "@heroicons/react/24/solid";
 import { signOut, useSession } from "next-auth/react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -30,7 +30,12 @@ const UserListItem = ({ className = "" }: UserListItemProps) => {
               <div className="avatar overflow-hidden rounded-full">
                 <div className="w-10">
                   {session?.user?.image && (
-                    <Image src={session.user.image} layout="fill" />
+                    <Image
+                      src={session.user.image}
+                      alt="User avatar"
+                      fill
+                      sizes="100vw"
+                    />
                   )}
                 </div>
               </div>

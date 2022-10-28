@@ -3,7 +3,7 @@ import { trpc } from "@utils/trpc";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -31,7 +31,7 @@ const UserPage: NextPage = () => {
           <div className="flex gap-5 p-3">
             {user.image && (
               <div className="avatar aspect-square w-10 overflow-hidden rounded-full">
-                <Image src={user.image} layout="fill" />
+                <Image src={user.image} alt="User avatar" fill sizes="100vw" />
               </div>
             )}
             <h2 className="text-2xl">{user.name}</h2>
