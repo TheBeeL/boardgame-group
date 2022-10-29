@@ -1,3 +1,5 @@
+"use client";
+
 import UserListItem from "@components/Navbar/UserListItem";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -12,10 +14,11 @@ const Navbar = ({ className = "" }: NavbarProps) => {
   return (
     <nav className="navbar mb-3 rounded-2xl bg-base-300">
       <div className="flex-1">
-        <Link href="/">
-          <a className="btn btn-ghost font-brand text-3xl font-normal normal-case text-cyan-500">
-            Meeplr
-          </a>
+        <Link
+          href="/"
+          className="btn btn-ghost font-brand text-3xl font-normal normal-case text-cyan-500"
+        >
+          Meeplr
         </Link>
       </div>
       <div className="flex-none gap-2">

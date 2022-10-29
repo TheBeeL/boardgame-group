@@ -24,7 +24,15 @@ const BoardgamePage = () => {
       <main className="container mx-auto mt-6">
         <div className="flex gap-6">
           <div className="relative aspect-square grow overflow-hidden rounded-xl border border-stone-500">
-            <Image src={boardgame.image} layout="fill" objectFit="contain" />
+            <Image
+              src={boardgame.image}
+              alt={boardgame.name}
+              fill
+              sizes="100vw"
+              style={{
+                objectFit: "contain",
+              }}
+            />
           </div>
           <div className="basis-2/3">
             <h1 className="text-3xl font-bold">{boardgame.name}</h1>

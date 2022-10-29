@@ -18,4 +18,8 @@ export default defineNextConfig({
   images: {
     domains: ["cf.geekdo-images.com", "lh3.googleusercontent.com"],
   },
+  experimental: {
+    appDir: true,
+    // serverComponentsExternalPackages: ["prisma"],
+  },
 });
