@@ -1,3 +1,5 @@
+"use client";
+
 import { useGesture } from "@use-gesture/react";
 import { useRef } from "react";
 import { animated, to, useSpring } from "react-spring";

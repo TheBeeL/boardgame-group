@@ -1,3 +1,5 @@
+"use client";
+
 import UserListItem from "@components/Navbar/UserListItem";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
