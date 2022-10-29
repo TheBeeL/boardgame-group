@@ -1,13 +1,23 @@
 import Layout from "@components/Layout";
 import { withTRPC } from "@trpc/next";
+import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import type { AppType } from "next/dist/shared/lib/utils";
+import type {
+  AppType,
+  NextComponentType,
+  NextPageContext,
+} from "next/dist/shared/lib/utils";
 import superjson from "superjson";
 import type { AppRouter } from "../server/router";
 
 import "../styles/globals.css";
 
-const MyApp: AppType = ({
+interface PageProps {
+  session: Session;
+  [key: string | number | symbol]: any;
+}
+
+const App: AppType<PageProps> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
@@ -50,4 +60,4 @@ export default withTRPC<AppRouter>({
    * @link https://trpc.io/docs/ssr
    */
   ssr: false,
-})(MyApp);
+})(App);
