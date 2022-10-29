@@ -2,14 +2,13 @@
 
 import MutationButton from "@components/MutationButton";
 import { trpc } from "@utils/trpc";
-import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-const UserPage: NextPage = () => {
+const UserPage = () => {
   const router = useRouter();
   const { data: session } = useSession({
     required: true,
