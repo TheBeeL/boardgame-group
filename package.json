@@ -19,6 +19,8 @@
     "@trpc/server": "^9.27.0",
     "@use-gesture/react": "^10.2.20",
     "boardgamegeekclient": "^1.6.0",
+    "class-variance-authority": "^0.2.4",
+    "clsx": "^1.2.1",
     "daisyui": "^2.31.0",
     "html-entities": "^2.3.3",
     "next": "12.2.3",
