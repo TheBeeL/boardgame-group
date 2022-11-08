@@ -1,3 +1,4 @@
+import Button from "@components/ui/Button";
 import { ReactNode } from "react";
 
 interface MutationButtonProps {
@@ -19,13 +20,13 @@ const MutationButton = ({
   className = "",
 }: MutationButtonProps) => {
   return (
-    <button
-      className={`${className} btn btn-primary ${isLoading && "loading"}`}
-      disabled={isLoading}
+    <Button
+      loading={isLoading}
+      className={`${className}`}
       onClick={() => mutate(data)}
     >
       {children}
-    </button>
+    </Button>
   );
 };
 
